@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DevJobs — AA3-EV01</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] } } } }</script>
+</head>
+
+<body class="bg-slate-50 font-sans">
+    <header class="bg-gradient-to-r from-indigo-600 to-cyan-500 text-white">
+        <div class="max-w-5xl mx-auto px-6 py-10">
+            <h1 class="text-3xl sm:text-4xl font-extrabold">DevJobs — Spring Boot</h1>
+            <p class="mt-2 text-white/90">Bootstrap del proyecto (Web + Thymeleaf + JPA + H2)</p>
+            <div class="mt-6 flex gap-3">
+                <a class="rounded-xl bg-white text-slate-900 px-4 py-2 font-semibold shadow"
+                    href="/actuator/health">Health</a>
+                <a class="rounded-xl bg-white text-slate-900 px-4 py-2 font-semibold shadow" href="/h2">H2 Console</a>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-5xl mx-auto px-6 py-10">
+        <p class="text-slate-700">Listo para agregar dominio y UI.</p>
+    </main>
+</body>
+
+</html>
