@@ -14,5 +14,9 @@ jobs:
           distribution: temurin
           java-version: "17"
           cache: maven
+
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
       - name: Build
         run: ./mvnw -B -ntp clean package -DskipTests
