@@ -1,143 +1,180 @@
 package com.devjobs.domain;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import java.time.Instant;
 
 @Entity
 @Table(name = "jobs")
 public class Job {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @NotBlank
-    @Size(max = 120)
-    @Column(nullable = false, length = 120)
-    private String title;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @NotBlank
-    @Size(max = 120)
-    @Column(nullable = false, length = 120)
-    private String company;
+  @NotBlank
+  @Size(max = 120)
+  @Column(nullable = false, length = 120)
+  private String title;
 
-    @NotBlank
-    @Size(max = 120)
-    @Column(nullable = false, length = 120)
-    private String location;
+  @NotBlank
+  @Size(max = 120)
+  @Column(nullable = false, length = 120)
+  private String company;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private WorkMode workMode = WorkMode.HYBRID;
+  @NotBlank
+  @Size(max = 120)
+  @Column(nullable = false, length = 120)
+  private String location;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private JobType type = JobType.FULL_TIME;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, length = 20)
+  private WorkMode workMode = WorkMode.HYBRID;
 
-    @NotBlank
-    @Size(max = 1000)
-    @Column(nullable = false, length = 1000)
-    private String description;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, length = 20)
+  private JobType type = JobType.FULL_TIME;
 
-    @PositiveOrZero
-    private Integer salaryMin;
+  @NotBlank
+  @Size(max = 1000)
+  @Column(nullable = false, length = 1000)
+  private String description;
 
-    @PositiveOrZero
-    private Integer salaryMax;
+  @PositiveOrZero private Integer salaryMin;
 
-    @Column(nullable = false, updatable = false)
-    private Instant postedAt;
+  @PositiveOrZero private Integer salaryMax;
 
-    @PrePersist
-    void onCreate() {
-        this.postedAt = Instant.now();
-    }
+  @Column(nullable = false, updatable = false)
+  private Instant postedAt;
 
-    public Job() {
-    }
+  @PrePersist
+  void onCreate() {
+    this.postedAt = Instant.now();
+  }
 
-    public Job(String title, String company, String location, WorkMode workMode, JobType type,
-            String description, Integer salaryMin, Integer salaryMax) {
-        this.title = title;
-        this.company = company;
-        this.location = location;
-        this.workMode = workMode;
-        this.type = type;
-        this.description = description;
-        this.salaryMin = salaryMin;
-        this.salaryMax = salaryMax;
-    }
+  public Job() {
+    // default constructor for JPA
+  }
 
-    // getters/setters
-    public Long getId() {
-        return id;
-    }
+  public Job(
+      String title,
+      String company,
+      String location,
+      WorkMode workMode,
+      JobType type,
+      String description,
+      Integer salaryMin,
+      Integer salaryMax) {
+    this.title = title;
+    this.company = company;
+    this.location = location;
+    this.workMode = workMode;
+    this.type = type;
+    this.description = description;
+    this.salaryMin = salaryMin;
+    this.salaryMax = salaryMax;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public String getCompany() {
-        return company;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
+  public String getCompany() {
+    return company;
+  }
 
-    public String getLocation() {
-        return location;
-    }
+  public void setCompany(String company) {
+    this.company = company;
+  }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+  public String getLocation() {
+    return location;
+  }
 
-    public WorkMode getWorkMode() {
-        return workMode;
-    }
+  public void setLocation(String location) {
+    this.location = location;
+  }
 
-    public void setWorkMode(WorkMode workMode) {
-        this.workMode = workMode;
-    }
+  public WorkMode getWorkMode() {
+    return workMode;
+  }
 
-    public JobType getType() {
-        return type;
-    }
+  public void setWorkMode(WorkMode workMode) {
+    this.workMode = workMode;
+  }
 
-    public void setType(JobType type) {
-        this.type = type;
-    }
+  public JobType getType() {
+    return type;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setType(JobType type) {
+    this.type = type;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public Integer getSalaryMin() {
-        return salaryMin;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setSalaryMin(Integer salaryMin) {
-        this.salaryMin = salaryMin;
-    }
+  public Integer getSalaryMin() {
+    return salaryMin;
+  }
 
-    public Integer getSalaryMax() {
-        return salaryMax;
-    }
+  public void setSalaryMin(Integer salaryMin) {
+    this.salaryMin = salaryMin;
+  }
 
-    public void setSalaryMax(Integer salaryMax) {
-        this.salaryMax = salaryMax;
-    }
+  public Integer getSalaryMax() {
+    return salaryMax;
+  }
 
-    public Instant getPostedAt() {
-        return postedAt;
-    }
+  public void setSalaryMax(Integer salaryMax) {
+    this.salaryMax = salaryMax;
+  }
+
+  public Instant getPostedAt() {
+    return postedAt;
+  }
+
+  @Override
+  public String toString() {
+    return "Job{"
+        + "id="
+        + id
+        + ", title='"
+        + title
+        + '\''
+        + ", company='"
+        + company
+        + '\''
+        + ", location='"
+        + location
+        + '\''
+        + ", workMode="
+        + workMode
+        + ", type="
+        + type
+        + '}';
+  }
 }

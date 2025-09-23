@@ -9,31 +9,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JobService {
-    private final JobRepository repo;
+  private final JobRepository repo;
 
-    public JobService(JobRepository repo) {
-        this.repo = repo;
-    }
+  public JobService(JobRepository repo) {
+    this.repo = repo;
+  }
 
-    public List<Job> list() {
-        return repo.findAll();
-    }
+  public List<Job> list() {
+    return repo.findAll();
+  }
 
-    public List<Job> search(String q) {
-        return repo.findByTitleContainingIgnoreCaseOrCompanyContainingIgnoreCase(q, q);
-    }
+  public List<Job> search(String q) {
+    return repo.findByTitleContainingIgnoreCaseOrCompanyContainingIgnoreCase(q, q);
+  }
 
-    public Optional<Job> get(Long id) {
-        return repo.findById(id);
-    }
+  public Optional<Job> get(Long id) {
+    return repo.findById(id);
+  }
 
-    @Transactional
-    public Job create(Job j) {
-        return repo.save(j);
-    }
+  @Transactional
+  public Job create(Job j) {
+    return repo.save(j);
+  }
 
-    @Transactional
-    public void delete(Long id) {
-        repo.deleteById(id);
-    }
+  @Transactional
+  public void delete(Long id) {
+    repo.deleteById(id);
+  }
 }

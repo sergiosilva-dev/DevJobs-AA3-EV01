@@ -1,5 +1,11 @@
 package com.devjobs.domain;
 
+/** Modalidad de trabajo. */
 public enum WorkMode {
-    REMOTE, HYBRID, ONSITE
+  /** Presencial. */
+  ONSITE,
+  /** Remoto. */
+  REMOTE,
+  /** Híbrido. */
+  HYBRID
 }
