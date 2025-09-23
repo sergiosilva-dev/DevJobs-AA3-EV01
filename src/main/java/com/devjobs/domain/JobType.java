@@ -1,5 +1,13 @@
 package com.devjobs.domain;
 
+/** Tipo de contratación. */
 public enum JobType {
-    FULL_TIME, PART_TIME, CONTRACT, INTERN
+  /** Jornada completa. */
+  FULL_TIME,
+  /** Media jornada. */
+  PART_TIME,
+  /** Contrato. */
+  CONTRACT,
+  /** Prácticas. */
+  INTERNSHIP
 }
