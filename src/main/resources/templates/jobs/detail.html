@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es" th:replace="layout :: layout(~{::title}, ~{::section})">
+<title th:text="${job.title} + ' — ' + ${job.company}">Detalle</title>
+
+<section class="mx-auto max-w-3xl">
+    <div class="rounded-2xl border bg-white p-6 shadow-sm">
+        <h1 class="text-2xl font-extrabold" th:text="${job.title}">Título</h1>
+        <p class="mt-1 text-slate-600">
+            <span th:text="${job.company}">Empresa</span> ·
+            <span th:text="${job.location}">Ciudad</span> ·
+            <span th:text="${job.workMode}">REMOTE</span> ·
+            <span class="font-semibold" th:text="${job.type}">FULL_TIME</span>
+        </p>
+
+        <dl class="mt-4 grid sm:grid-cols-2 gap-4 text-sm">
+            <div>
+                <dt class="text-slate-500">Publicado</dt>
+                <dd th:text="${#temporals.format(job.postedAt,'yyyy-MM-dd HH:mm')}">fecha</dd>
+            </div>
+            <div>
+                <dt class="text-slate-500">Salario</dt>
+                <dd th:text="${job.salaryMin} + ' - ' + ${job.salaryMax}">0-0</dd>
+            </div>
+        </dl>
+
+        <p class="mt-6 whitespace-pre-line leading-relaxed" th:text="${job.description}"></p>
+
+        <div class="mt-6 flex gap-3">
+            <a href="/jobs" class="rounded-lg px-4 py-2 bg-slate-100 hover:bg-slate-200">Volver</a>
+            <a th:href="@{|/jobs/${job.id}/edit|}"
+                class="rounded-lg px-4 py-2 bg-amber-100 hover:bg-amber-200">Editar</a>
+            <form th:action="@{|/jobs/${job.id}/delete|}" method="post"
+                onsubmit="return confirm('¿Eliminar esta oferta?')">
+                <button class="rounded-lg px-4 py-2 bg-rose-100 hover:bg-rose-200">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+</html>

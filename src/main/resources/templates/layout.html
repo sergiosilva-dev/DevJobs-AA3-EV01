@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es" th:fragment="layout(title,content)">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title th:replace="${title}">DevJobs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] } } } }</script>
+</head>
+
+<body class="bg-slate-50 font-sans">
+    <header class="bg-gradient-to-r from-indigo-600 to-cyan-500 text-white">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center gap-4">
+            <a href="/jobs" class="text-2xl font-extrabold tracking-tight">DevJobs</a>
+            <nav class="ml-auto flex gap-3">
+                <a href="/jobs" class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20">Ofertas</a>
+                <a href="/jobs/new" class="px-4 py-2 rounded-xl bg-white text-slate-900 font-semibold shadow">Nueva
+                    oferta</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-8">
+        <div th:if="${msg}" class="mb-6 rounded-lg bg-emerald-100 text-emerald-900 px-4 py-3" th:text="${msg}"></div>
+        <div th:replace="${content}"></div>
+    </main>
+
+    <footer class="border-t mt-12">
+        <div class="max-w-6xl mx-auto px-6 py-6 text-sm text-slate-500">
+            © 2025 DevJobs — AA3-EV01 · Spring Boot 3
+        </div>
+    </footer>
+</body>
+
+</html>

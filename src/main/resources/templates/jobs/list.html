@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es" th:replace="layout :: layout(~{::title}, ~{::section})">
+<title>Ofertas — DevJobs</title>
+
+<section>
+    <form method="get" class="mb-6 flex gap-3">
+        <input name="q" th:value="${q}" placeholder="Buscar por título o empresa…"
+            class="flex-1 rounded-xl border px-4 py-2 shadow-sm" />
+        <button class="rounded-xl bg-slate-900 text-white px-4 py-2 font-semibold">Buscar</button>
+        <a href="/jobs/new" class="rounded-xl bg-indigo-600 text-white px-4 py-2 font-semibold">Nueva</a>
+    </form>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+        <article th:each="j : ${jobs}" class="rounded-2xl border bg-white p-5 shadow-sm">
+            <div class="flex items-start justify-between gap-4">
+                <h2 class="text-lg font-bold">
+                    <a th:href="@{|/jobs/${j.id}|}" th:text="${j.title}">Título</a>
+                </h2>
+                <span class="rounded-full bg-indigo-50 text-indigo-700 px-3 py-1 text-xs font-semibold"
+                    th:text="${j.type}">FULL_TIME</span>
+            </div>
+            <p class="mt-1 text-slate-600">
+                <span th:text="${j.company}">Empresa</span> ·
+                <span th:text="${j.location}">Ciudad</span> ·
+                <span th:text="${j.workMode}">REMOTE</span>
+            </p>
+            <p class="mt-3 line-clamp-2 text-sm text-slate-700" th:text="${j.description}">Descripción</p>
+            <div class="mt-4 flex gap-3">
+                <a th:href="@{|/jobs/${j.id}|}" class="rounded-lg px-3 py-2 bg-slate-100 hover:bg-slate-200">Ver</a>
+                <a th:href="@{|/jobs/${j.id}/edit|}"
+                    class="rounded-lg px-3 py-2 bg-amber-100 hover:bg-amber-200">Editar</a>
+                <form th:action="@{|/jobs/${j.id}/delete|}" method="post"
+                    onsubmit="return confirm('¿Eliminar esta oferta?')">
+                    <button class="rounded-lg px-3 py-2 bg-rose-100 hover:bg-rose-200">Eliminar</button>
+                </form>
+            </div>
+        </article>
+    </div>
+
+    <p th:if="${#lists.isEmpty(jobs)}" class="text-slate-500">Sin resultados.</p>
+</section>
+
+</html>
