@@ -16,7 +16,18 @@ spring:
     open-in-view: false
     properties:
       hibernate.format_sql: true
+  thymeleaf:
+    encoding: UTF-8
+  messages:
+    encoding: UTF-8
 management:
   endpoints.web.exposure.include: "health,info"
 server:
   port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  tomcat:
+    uri-encoding: UTF-8
