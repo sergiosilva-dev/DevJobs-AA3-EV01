@@ -4,14 +4,15 @@ import com.devjobs.api.dto.JobRequest;
 import com.devjobs.domain.JobType;
 import com.devjobs.domain.WorkMode;
 import com.devjobs.service.JobService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 @RequestMapping("/jobs")
@@ -23,6 +24,26 @@ public class JobWebController {
     this.jobs = jobs;
   }
 
+  private void seo(
+      Model model, HttpServletRequest req, String title, String description, String canonicalPath) {
+
+    String base =
+        ServletUriComponentsBuilder.fromRequestUri(req)
+            .replacePath(null)
+            .replaceQuery(null)
+            .build()
+            .toUriString();
+
+    String canonical =
+        (canonicalPath != null && !canonicalPath.isBlank()) ? base + canonicalPath : base;
+
+    model.addAttribute("pageTitle", title);
+    model.addAttribute("pageDescription", description);
+    model.addAttribute("canonicalUrl", canonical);
+
+    model.addAttribute("ogImage", base + "/img/og-devjobs.png");
+  }
+
   // LISTA
   @GetMapping
   public String list(
@@ -31,29 +52,38 @@ public class JobWebController {
       @RequestParam Optional<JobType> type,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
-      Model model) {
+      Model model,
+      HttpServletRequest req) {
 
-    Pageable pageable = PageRequest.of(page, size);
-
+    var pageable = PageRequest.of(page, size);
     var pageData = jobs.list(q, workMode, type, pageable);
 
-    // Si tus vistas esperan una lista, pasa el contenido:
     model.addAttribute("jobs", pageData.getContent());
-
-    // Datos útiles por si luego paginas/filtras en la vista:
     model.addAttribute("page", pageData);
     model.addAttribute("q", q.orElse(""));
-    model.addAttribute("workMode", workMode.orElse(null));
-    model.addAttribute("type", type.orElse(null));
 
+    seo(
+        model,
+        req,
+        "Ofertas de empleo tech — DevJobs",
+        "Vacantes para desarrolladores, QA y DevOps. Filtra por modalidad, tipo y ubicación.",
+        "/jobs"); // canonical limpio
     return "jobs/list";
   }
 
   // DETALLE
   @GetMapping("/{id}")
-  public String detail(@PathVariable Long id, Model model) {
-    model.addAttribute(
-        "job", jobs.get(id)); // devolvemos la entidad, las vistas acceden con ${job.campo}
+  public String detail(@PathVariable Long id, Model model, HttpServletRequest req) {
+    var j = jobs.get(id);
+    model.addAttribute("job", j);
+
+    String title = j.getTitle() + " en " + j.getCompany() + " — DevJobs";
+    String desc =
+        String.format(
+            "Vacante %s en %s (%s). Tipo: %s. Modalidad: %s.",
+            j.getTitle(), j.getCompany(), j.getLocation(), j.getType(), j.getWorkMode());
+
+    seo(model, req, title, desc, "/jobs/" + id);
     return "jobs/detail";
   }
 
