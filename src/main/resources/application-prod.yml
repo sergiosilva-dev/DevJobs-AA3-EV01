@@ -6,3 +6,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  thymeleaf:
+    encoding: UTF-8
+  messages:
+    encoding: UTF-8
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  tomcat:
+    uri-encoding: UTF-8
