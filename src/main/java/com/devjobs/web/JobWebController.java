@@ -1,6 +1,7 @@
 package com.devjobs.web;
 
 import com.devjobs.api.dto.JobRequest;
+import com.devjobs.domain.Job;
 import com.devjobs.domain.JobType;
 import com.devjobs.domain.WorkMode;
 import com.devjobs.service.JobService;
@@ -8,9 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -67,7 +70,7 @@ public class JobWebController {
         req,
         "Ofertas de empleo tech — DevJobs",
         "Vacantes para desarrolladores, QA y DevOps. Filtra por modalidad, tipo y ubicación.",
-        "/jobs"); // canonical limpio
+        "/jobs");
     return "jobs/list";
   }
 
@@ -97,9 +100,7 @@ public class JobWebController {
   // CREAR
   @PostMapping
   public String create(@ModelAttribute("job") @Valid JobRequest req, RedirectAttributes ra) {
-    var created =
-        jobs.create(req); // si tu create() devuelve void, cambia a: jobs.create(req); return
-    // "redirect:/jobs";
+    var created = jobs.create(req);
     ra.addFlashAttribute("ok", "Oferta creada");
     return "redirect:/jobs/" + created.getId();
   }
@@ -137,5 +138,27 @@ public class JobWebController {
     jobs.delete(id);
     ra.addFlashAttribute("ok", "Oferta eliminada");
     return "redirect:/jobs";
+  }
+
+  // ENUMS PARA FORM
+  @ModelAttribute("workModes")
+  public com.devjobs.domain.WorkMode[] workModes() {
+    return com.devjobs.domain.WorkMode.values();
+  }
+
+  @ModelAttribute("jobTypes")
+  public com.devjobs.domain.JobType[] jobTypes() {
+    return com.devjobs.domain.JobType.values();
+  }
+
+  // MANEJO DE ERROR 404
+  @GetMapping("/jobs/{id}")
+  public String show(@PathVariable Long id, Model model) {
+    Job job =
+        jobs.findById(id)
+            .orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job not found: " + id));
+    model.addAttribute("job", job);
+    return "jobs/detail";
   }
 }

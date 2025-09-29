@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" th:replace="layout :: layout(~{::title}, ~{::section})" th:with="editing=${job.id != null}">
+<html lang="es" th:replace="~{layout :: layout(~{::title}, ~{::section})}" th:with="editing=${job.id != null}">
 <title th:text="${editing} ? 'Editar oferta' : 'Nueva oferta'">Form</title>
 
 <section>
@@ -29,13 +29,13 @@
             <div>
                 <label class="block text-sm font-semibold">Modalidad</label>
                 <select th:field="*{workMode}" class="w-full rounded-xl border px-4 py-2">
-                    <option th:each="m : ${workModes}" th:value="${m}" th:text="${m}"></option>
+                    <option th:each="wm : ${workModes}" th:value="${wm}" th:text="${wm}"></option>
                 </select>
             </div>
             <div>
                 <label class="block text-sm font-semibold">Tipo</label>
                 <select th:field="*{type}" class="w-full rounded-xl border px-4 py-2">
-                    <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+                    <option th:each="t : ${jobTypes}" th:value="${t}" th:text="${t}"></option>
                 </select>
             </div>
         </div>
