@@ -5,13 +5,13 @@ import com.devjobs.domain.Job;
 import com.devjobs.domain.JobType;
 import com.devjobs.domain.WorkMode;
 import com.devjobs.repository.JobRepository;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -78,5 +78,9 @@ public class JobService {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Job " + id + " no existe");
     }
     repo.deleteById(id);
+  }
+
+  public Optional<Job> findById(Long id) {
+    return repo.findById(id);
   }
 }
