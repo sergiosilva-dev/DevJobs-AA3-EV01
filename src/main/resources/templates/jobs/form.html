@@ -3,58 +3,81 @@
 <title th:text="${editing} ? 'Editar oferta' : 'Nueva oferta'">Form</title>
 
 <section>
+    <h1 id="form-title" class="text-2xl font-extrabold" th:text="${job.id} != null ? 'Editar oferta' : 'Nueva oferta'">
+        Formulario</h1>
     <form th:action="${editing} ? @{|/jobs/${job.id}/edit|} : @{/jobs}" th:object="${job}" method="post"
-        class="mx-auto max-w-3xl rounded-2xl border bg-white p-6 shadow-sm grid gap-4">
+        class="mx-auto max-w-3xl rounded-2xl border bg-white p-6 shadow-sm grid gap-4" aria-labelledby="form-title">
 
         <div>
-            <label class="block text-sm font-semibold">Título</label>
-            <input th:field="*{title}" class="w-full rounded-xl border px-4 py-2" />
-            <p class="text-rose-600 text-sm" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+            <label class="block text-sm font-semibold" th:for="*{title}">Título</label>
+            <input th:field="*{title}" class="w-full rounded-xl border px-4 py-2" aria-required="true"
+                aria-describedby="err-title" />
+            <p id="err-title" class="text-rose-600 text-sm" aria-live="polite" th:if="${#fields.hasErrors('title')}"
+                th:errors="*{title}"></p>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-semibold">Empresa</label>
-                <input th:field="*{company}" class="w-full rounded-xl border px-4 py-2" />
-                <p class="text-rose-600 text-sm" th:if="${#fields.hasErrors('company')}" th:errors="*{company}"></p>
+                <label class="block text-sm font-semibold" th:for="*{company}">Empresa</label>
+                <input th:field="*{company}" class="w-full rounded-xl border px-4 py-2" aria-required="true"
+                    aria-describedby="err-company" />
+                <p id="err-company" class="text-rose-600 text-sm" aria-live="polite"
+                    th:if="${#fields.hasErrors('company')}" th:errors="*{company}"></p>
             </div>
             <div>
-                <label class="block text-sm font-semibold">Ubicación</label>
-                <input th:field="*{location}" class="w-full rounded-xl border px-4 py-2" />
-                <p class="text-rose-600 text-sm" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
+                <label class="block text-sm font-semibold" th:for="*{location}">Ubicación</label>
+                <input th:field="*{location}" class="w-full rounded-xl border px-4 py-2"
+                    aria-describedby="err-location" />
+                <p id="err-location" class="text-rose-600 text-sm" aria-live="polite"
+                    th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
             </div>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-semibold">Modalidad</label>
-                <select th:field="*{workMode}" class="w-full rounded-xl border px-4 py-2">
+                <label class="block text-sm font-semibold" th:for="*{workMode}">Modalidad</label>
+                <select th:field="*{workMode}" class="w-full rounded-xl border px-4 py-2"
+                    aria-describedby="err-workMode">
+                    <option value="" disabled selected>Selecciona…</option>
                     <option th:each="wm : ${workModes}" th:value="${wm}" th:text="${wm}"></option>
                 </select>
+                <p id="err-workMode" class="text-red-600 text-sm" aria-live="polite"
+                    th:if="${#fields.hasErrors('workMode')}" th:errors="*{workMode}">Error</p>
             </div>
             <div>
-                <label class="block text-sm font-semibold">Tipo</label>
-                <select th:field="*{type}" class="w-full rounded-xl border px-4 py-2">
+                <label class="block text-sm font-semibold" th:for="*{type}">Tipo</label>
+                <select th:field="*{type}" class="w-full rounded-xl border px-4 py-2" aria-describedby="err-type">
+                    <option value="" disabled selected>Selecciona…</option>
                     <option th:each="t : ${jobTypes}" th:value="${t}" th:text="${t}"></option>
                 </select>
+                <p id="err-type" class="text-red-600 text-sm" aria-live="polite" th:if="${#fields.hasErrors('type')}"
+                    th:errors="*{type}">Error</p>
             </div>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-semibold">Salario mínimo</label>
-                <input type="number" th:field="*{salaryMin}" class="w-full rounded-xl border px-4 py-2" />
+                <label class="block text-sm font-semibold" th:for="*{salaryMin}">Salario mínimo</label>
+                <input type="number" th:field="*{salaryMin}" class="w-full rounded-xl border px-4 py-2"
+                    inputmode="numeric" aria-describedby="err-smin" />
+                <p id="err-smin" class="text-red-600 text-sm" aria-live="polite"
+                    th:if="${#fields.hasErrors('salaryMin')}" th:errors="*{salaryMin}">Error</p>
             </div>
             <div>
-                <label class="block text-sm font-semibold">Salario máximo</label>
-                <input type="number" th:field="*{salaryMax}" class="w-full rounded-xl border px-4 py-2" />
+                <label class="block text-sm font-semibold" th:for="*{salaryMax}">Salario máximo</label>
+                <input type="number" th:field="*{salaryMax}" class="w-full rounded-xl border px-4 py-2"
+                    inputmode="numeric" aria-describedby="err-smax" />
+                <p id="err-smax" class="text-red-600 text-sm" aria-live="polite"
+                    th:if="${#fields.hasErrors('salaryMax')}" th:errors="*{salaryMax}">Error</p>
             </div>
         </div>
 
         <div>
-            <label class="block text-sm font-semibold">Descripción</label>
-            <textarea th:field="*{description}" rows="5" class="w-full rounded-xl border px-4 py-2"></textarea>
-            <p class="text-rose-600 text-sm" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+            <label class="block text-sm font-semibold" th:for="*{description}">Descripción</label>
+            <textarea th:field="*{description}" rows="5" class="w-full rounded-xl border px-4 py-2"
+                aria-describedby="err-desc"></textarea>
+            <p id="err-desc" class="text-rose-600 text-sm" id="err-desc" th:if="${#fields.hasErrors('description')}"
+                th:errors="*{description}"></p>
         </div>
 
         <div class="flex gap-3">

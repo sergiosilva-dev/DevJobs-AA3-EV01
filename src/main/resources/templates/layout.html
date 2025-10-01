@@ -51,10 +51,13 @@
 </head>
 
 <body class="bg-slate-50 font-sans">
-    <header class="bg-gradient-to-r from-indigo-600 to-cyan-500 text-white">
+    <a href="#main" class="sr-only focus:not-sr-only focus:outline-none focus:ring p-2 bg-white text-slate-900">
+        Saltar al contenido principal
+    </a>
+    <header class="bg-gradient-to-r from-indigo-600 to-cyan-500 text-white" role="banner">
         <div class="max-w-6xl mx-auto px-6 py-6 flex flex-wrap items-center gap-4">
             <a href="/jobs" class="text-2xl font-extrabold tracking-tight">DevJobs</a>
-            <nav class="ml-auto flex gap-3">
+            <nav class="ml-auto flex gap-3" aria-label="Navegación principal">
                 <a href="/jobs" class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20">Ofertas</a>
                 <a href="/jobs/new" class="px-4 py-2 rounded-xl bg-white text-slate-900 font-semibold shadow">Nueva
                     oferta</a>
@@ -62,12 +65,12 @@
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-8">
+    <main class="max-w-6xl mx-auto px-6 py-8" id="main" role="main" tabindex="-1">
         <div th:if="${msg}" class="mb-6 rounded-lg bg-emerald-100 text-emerald-900 px-4 py-3" th:text="${msg}"></div>
         <div th:replace="${content}"></div>
     </main>
 
-    <footer class="border-t mt-12">
+    <footer class="border-t mt-12" role="contentinfo">
         <div class="max-w-6xl mx-auto px-6 py-6 text-sm text-slate-500">
             © 2025 DevJobs — AA3-EV01 · Spring Boot 3
         </div>
