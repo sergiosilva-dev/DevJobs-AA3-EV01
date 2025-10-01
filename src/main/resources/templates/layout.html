@@ -34,6 +34,12 @@
         th:attr="content=${pageDescription} ?: 'Encuentra ofertas para desarrolladores, QA y DevOps.'" />
     <meta name="twitter:image" th:if="${ogImage}" th:attr="content=${ogImage}" />
 
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#4f46e5">
+
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
