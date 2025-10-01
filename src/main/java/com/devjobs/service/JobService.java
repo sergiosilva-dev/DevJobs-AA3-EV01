@@ -6,6 +6,7 @@ import com.devjobs.domain.JobType;
 import com.devjobs.domain.WorkMode;
 import com.devjobs.repository.JobRepository;
 import jakarta.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -82,5 +83,9 @@ public class JobService {
 
   public Optional<Job> findById(Long id) {
     return repo.findById(id);
+  }
+
+  public List<Job> findAll() {
+    return repo.findAll();
   }
 }
