@@ -26,15 +26,17 @@
     <p class="mt-6 whitespace-pre-line leading-relaxed" th:text="${job.description}"></p>
 
     <div class="mt-6 flex gap-3">
-      <a href="/jobs" class="rounded-lg px-4 py-2 bg-slate-100 hover:bg-slate-200">Volver</a>
-      <a th:href="@{|/jobs/${job.id}/edit|}" class="rounded-lg px-4 py-2 bg-amber-100 hover:bg-amber-200">Editar</a>
+      <a href="/jobs" class="btn rounded-lg px-4 py-2 bg-slate-100 hover:bg-slate-200"
+        aria-label="Volver al listado">Volver</a>
+      <a th:href="@{|/jobs/${job.id}/edit|}" th:aria-label="|Editar oferta: ${job.title}|"
+        class="btn rounded-lg px-4 py-2 bg-amber-100 hover:bg-amber-200">Editar</a>
       <form th:action="@{|/jobs/${job.id}/delete|}" method="post" onsubmit="return confirm('¿Eliminar esta oferta?')">
         <button class="rounded-lg px-4 py-2 bg-rose-100 hover:bg-rose-200">Eliminar</button>
       </form>
     </div>
   </div>
 
-<script type="application/ld+json" th:inline="javascript">
+  <script type="application/ld+json" th:inline="javascript">
 {
   "@context": "https://schema.org",
   "@type": "JobPosting",
