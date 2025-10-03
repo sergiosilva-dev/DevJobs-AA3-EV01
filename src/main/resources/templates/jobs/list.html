@@ -12,10 +12,10 @@
     </form>
 
     <div class="grid gap-4 sm:grid-cols-2">
-        <article th:each="j : ${jobs}" class="rounded-2xl border bg-white p-5 shadow-sm">
+        <article th:each="j : ${jobs}" th:if="${j != null}" class="rounded-2xl border bg-white p-5 shadow-sm">
             <div class="flex items-start justify-between gap-4">
                 <h2 class="text-lg font-bold">
-                    <a th:href="@{|/jobs/${j.id}|}" th:text="${j.title}">Título</a>
+                    <a th:href="@{/jobs/{id}(id=${j.id})}" th:text="${j.title}">Título</a>
                 </h2>
                 <span class="rounded-full bg-indigo-50 text-indigo-700 px-3 py-1 text-xs font-semibold"
                     th:text="${j.type}">FULL_TIME</span>
@@ -27,7 +27,7 @@
             </p>
             <p class="mt-3 line-clamp-2 text-sm text-slate-700" th:text="${j.description}">Descripción</p>
             <div class="mt-4 flex gap-3">
-                <a th:href="@{|/jobs/${j.id}|}" th:aria-label="|Ver oferta: ${job.title}|"
+                <a th:href="@{/jobs/{id}(id=${j.id})}" th:aria-label="|Ver oferta: ${j.title}|"
                     class="btn rounded-lg px-3 py-2 bg-slate-100 hover:bg-slate-200">Ver</a>
                 <a th:href="@{|/jobs/${j.id}/edit|}"
                     class="rounded-lg px-3 py-2 bg-amber-100 hover:bg-amber-200">Editar</a>

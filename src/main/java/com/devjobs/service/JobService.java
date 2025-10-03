@@ -88,4 +88,8 @@ public class JobService {
   public List<Job> findAll() {
     return repo.findAll();
   }
+
+  public Page<Job> findAll(String q, String type, String workMode, Pageable pageable) {
+    return repo.findAll(pageable);
+  }
 }

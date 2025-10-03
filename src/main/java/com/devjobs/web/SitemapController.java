@@ -52,7 +52,9 @@ public class SitemapController {
     StringBuilder sb = new StringBuilder();
     sb.append("<url>");
     sb.append("<loc>").append(escapeXml(loc)).append("</loc>");
-    if (lastmod != null) sb.append("<lastmod>").append(lastmod).append("</lastmod>");
+    if (lastmod != null) {
+      sb.append("<lastmod>").append(lastmod).append("</lastmod>");
+    }
     sb.append("<changefreq>").append(changefreq).append("</changefreq>");
     sb.append("<priority>").append(priority).append("</priority>");
     sb.append("</url>");

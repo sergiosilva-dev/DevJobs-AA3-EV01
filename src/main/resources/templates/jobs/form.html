@@ -3,9 +3,9 @@
 <title th:text="${editing} ? 'Editar oferta' : 'Nueva oferta'">Form</title>
 
 <section>
-    <h1 id="form-title" class="text-2xl font-extrabold" th:text="${job.id} != null ? 'Editar oferta' : 'Nueva oferta'">
+    <h1 id="form-title" class="text-2xl font-extrabold" th:text="${jobId} != null ? 'Editar oferta' : 'Nueva oferta'">
         Formulario</h1>
-    <form th:action="${editing} ? @{|/jobs/${job.id}/edit|} : @{/jobs}" th:object="${job}" method="post"
+    <form th:action="${editing} ? @{|/jobs/${jobId}/edit|} : @{/jobs}" th:object="${job}" method="post"
         class="mx-auto max-w-3xl rounded-2xl border bg-white p-6 shadow-sm grid gap-4" aria-labelledby="form-title">
 
         <div>
@@ -76,7 +76,7 @@
             <label class="block text-sm font-semibold" th:for="*{description}">Descripción</label>
             <textarea th:field="*{description}" rows="5" class="w-full rounded-xl border px-4 py-2"
                 aria-describedby="err-desc"></textarea>
-            <p id="err-desc" class="text-rose-600 text-sm" id="err-desc" th:if="${#fields.hasErrors('description')}"
+            <p id="err-desc" class="text-rose-600 text-sm" th:if="${#fields.hasErrors('description')}"
                 th:errors="*{description}"></p>
         </div>
 
